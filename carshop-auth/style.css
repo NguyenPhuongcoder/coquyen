@@ -1,0 +1,339 @@
+/* ===================================
+   CarShop Authentication Styles
+   =================================== */
+
+/* Root Variables */
+:root {
+    --primary: #CB3634;
+    --primary-dark: #A82C2A;
+    --primary-light: #E84644;
+    --gray-50: #F9FAFB;
+    --gray-100: #F3F4F6;
+    --gray-200: #E5E7EB;
+    --gray-300: #D1D5DB;
+    --gray-600: #4B5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-inter {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Primary Color Classes */
+.bg-primary {
+    background-color: var(--primary);
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-primary-dark {
+    color: var(--primary-dark);
+}
+
+.border-primary {
+    border-color: var(--primary);
+}
+
+/* Input Field Styles */
+.input-field {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    background-color: white;
+    outline: none;
+}
+
+.input-field:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(203, 54, 52, 0.1);
+}
+
+.input-field:hover {
+    border-color: var(--gray-600);
+}
+
+.input-field::placeholder {
+    color: var(--gray-300);
+}
+
+/* Error Input State */
+.input-field.error {
+    border-color: #EF4444;
+    background-color: #FEF2F2;
+}
+
+.input-field.error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Error Message */
+.error-message {
+    color: #DC2626;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Primary Button */
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--primary);
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-1px);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:disabled {
+    background-color: var(--gray-300);
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Social Login Button */
+.btn-social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    background-color: white;
+    font-weight: 500;
+    font-size: 0.875rem;
+    color: var(--gray-700);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-social:hover {
+    border-color: var(--gray-600);
+    background-color: var(--gray-50);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+}
+
+.btn-social:active {
+    transform: translateY(0);
+}
+
+/* Checkbox Custom Style */
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(203, 54, 52, 0.1);
+}
+
+/* Link Styles */
+a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease;
+}
+
+.slide-in {
+    animation: slideIn 0.4s ease;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .input-field {
+        font-size: 16px; /* Prevent zoom on iOS */
+    }
+}
+
+@media (max-width: 640px) {
+    .btn-primary {
+        padding: 0.75rem 1.25rem;
+    }
+    
+    .btn-social {
+        padding: 0.625rem 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* Loading State */
+.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* Success/Error Messages Animation */
+#successMessage,
+#errorMessage {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Focus Ring for Accessibility */
+*:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* ===================================
+   Forgot Password Specific Styles
+   =================================== */
+
+/* Step Indicator */
+.step-indicator {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.875rem;
+    background-color: var(--gray-200);
+    color: var(--gray-600);
+    transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+    background-color: var(--primary);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(203, 54, 52, 0.1);
+}
+
+.step-indicator.completed {
+    background-color: #10B981;
+    color: white;
+}
+
+.step-line {
+    width: 3rem;
+    height: 2px;
+    background-color: var(--gray-300);
+    transition: all 0.3s ease;
+}
+
+/* Step Forms */
+.step-form {
+    display: none;
+}
+
+.step-form.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* OTP Input */
+.otp-input {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border: 2px solid var(--gray-300);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    outline: none;
+}
+
+.otp-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(203, 54, 52, 0.1);
+}
+
+.otp-input:hover {
+    border-color: var(--gray-600);
+}
+
+/* Responsive OTP Input */
+@media (max-width: 640px) {
+    .otp-input {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 1.125rem;
+    }
+    
+    .step-indicator {
+        width: 2rem;
+        height: 2rem;
+        font-size: 0.75rem;
+    }
+    
+    .step-line {
+        width: 2rem;
+    }
+}
