@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết xe - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+</head>
+<body class="font-inter bg-gray-50">
+    
+    <div class="min-h-screen flex items-center justify-center p-8">
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-primary rounded-full mb-6">
+                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Trang chi tiết xe</h1>
+            <p class="text-gray-600 mb-8">Trang này sẽ được phát triển trong phiên bản tiếp theo</p>
+            <a href="home.html" class="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-3 rounded-lg transition-colors">
+                ← Quay lại trang chủ
+            </a>
+        </div>
+    </div>
+    
+    <script>
+        // Get car ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const carId = urlParams.get('id');
+        console.log('Car ID:', carId);
+    </script>
+</body>
+</html>

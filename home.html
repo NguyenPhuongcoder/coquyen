@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang chủ - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+</head>
+<body class="font-inter bg-gray-50">
+
+    <!-- ===================================
+         HEADER - STICKY TOP
+         =================================== -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <a href="home.html" class="flex items-center gap-2">
+                        <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">CarShop</span>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="home.html" class="text-primary font-semibold">Trang chủ</a>
+                    <a href="#cars" class="text-gray-700 hover:text-primary transition-colors">Xe đang bán</a>
+                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors">Liên hệ</a>
+                </nav>
+
+                <!-- Search Bar -->
+                <div class="hidden lg:flex items-center flex-1 max-w-md mx-8">
+                    <div class="relative w-full">
+                        <input 
+                            type="text" 
+                            id="headerSearch"
+                            placeholder="Tìm theo tên xe, hãng xe..."
+                            class="w-full pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none text-sm"
+                        >
+                        <svg class="w-5 h-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- User Area -->
+                <div class="flex items-center gap-4">
+                    <div class="relative" id="userDropdown">
+                        <button class="flex items-center gap-2 hover:bg-gray-100 rounded-lg p-2 transition-colors" onclick="toggleUserMenu()">
+                            <img 
+                                src="https://randomuser.me/api/portraits/men/32.jpg" 
+                                alt="User Avatar" 
+                                class="w-8 h-8 rounded-full object-cover"
+                            >
+                            <span class="hidden md:block text-sm font-medium text-gray-700" id="userName">User</span>
+                            <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dropdown Menu -->
+                        <div id="userMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                Hồ sơ
+                            </a>
+                            <hr class="my-2">
+                            <a href="carshop-auth/login.html" class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-gray-200 bg-white">
+            <nav class="container mx-auto px-4 py-4 flex flex-col gap-3">
+                <a href="home.html" class="text-primary font-semibold">Trang chủ</a>
+                <a href="#cars" class="text-gray-700">Xe đang bán</a>
+                <a href="#contact" class="text-gray-700">Liên hệ</a>
+                <input 
+                    type="text" 
+                    placeholder="Tìm theo tên xe, hãng xe..."
+                    class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:border-primary focus:outline-none text-sm"
+                >
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================================
+         HERO SECTION - FEATURED CAR SLIDER
+         =================================== -->
+    <section class="relative h-[650px] lg:h-[750px] bg-gray-900">
+        <!-- Background Image -->
+        <div class="absolute inset-0 overflow-hidden">
+            <img 
+                id="heroCarImage"
+                src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?q=80&w=2000" 
+                alt="Mercedes-Benz C200" 
+                class="w-full h-full object-cover opacity-70"
+            >
+        </div>
+        
+        <!-- Dark Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent"></div>
+        
+        <!-- Content -->
+        <div class="relative h-full flex items-center pb-32">
+            <div class="container mx-auto px-4">
+                <div class="max-w-4xl mx-auto text-center">
+                    
+                    <!-- Car Name -->
+                    <h1 id="heroCarName" class="text-4xl lg:text-6xl font-bold text-white mb-4 animate-fade-in-down">
+                        Mercedes-Benz C200
+                    </h1>
+                    
+                    <!-- Price -->
+                    <div class="mb-6 animate-fade-in-up animation-delay-200">
+                        <span id="heroCarPrice" class="text-5xl lg:text-7xl font-bold text-primary">
+                            1.699 tỷ
+                        </span>
+                        <span class="text-2xl text-gray-300 ml-2">VNĐ</span>
+                    </div>
+                    
+                    <!-- Subtitle -->
+                    <p class="text-lg text-gray-300 mb-8 animate-fade-in-up animation-delay-300">
+                        Trả góp trong <span class="text-white font-semibold">36 tháng</span>
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-fade-in-up animation-delay-400">
+                        <button onclick="bookTestDrive()" class="inline-flex items-center justify-center bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all border border-white/30 hover:border-white/50">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Đặt lịch lái thử</span>
+                        </button>
+                        
+                        <button onclick="viewCarDetail(6)" class="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg">
+                            <span>Tìm hiểu thêm</span>
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Slider Navigation -->
+                    <div class="flex items-center justify-center gap-2 animate-fade-in-up animation-delay-500">
+                        <button onclick="prevHeroCar()" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 flex items-center justify-center text-white transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="flex gap-2 mx-4">
+                            <span class="w-2 h-2 rounded-full bg-white hero-dot active"></span>
+                            <span class="w-2 h-2 rounded-full bg-white/30 hero-dot"></span>
+                            <span class="w-2 h-2 rounded-full bg-white/30 hero-dot"></span>
+                        </div>
+                        
+                        <button onclick="nextHeroCar()" class="w-10 h-10 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 flex items-center justify-center text-white transition-all">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Inventory Bar -->
+        <div class="absolute -bottom-20 left-0 right-0 z-10">
+            <div class="container mx-auto px-4">
+                <div class="bg-white rounded-2xl shadow-2xl p-6 max-w-6xl mx-auto border border-gray-100">
+                    <!-- Title -->
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <h3 class="text-lg font-bold text-gray-900">Tìm kiếm xe</h3>
+                    </div>
+                    
+                    <!-- Search Form -->
+                    <div class="grid grid-cols-1 md:grid-cols-7 gap-3">
+                        <!-- Condition -->
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1.5">Tình trạng</label>
+                            <select id="heroCondition" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm appearance-none cursor-pointer hover:border-gray-300 transition-colors">
+                                <option value="">Tất cả</option>
+                                <option value="new">Xe mới</option>
+                                <option value="used">Xe đã qua sử dụng</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Make -->
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1.5">Hãng xe</label>
+                            <select id="heroMake" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm appearance-none cursor-pointer hover:border-gray-300 transition-colors">
+                                <option value="">Chọn hãng</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Mazda">Mazda</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Mercedes">Mercedes</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Model -->
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-gray-600 mb-1.5">Dòng xe</label>
+                            <select id="heroModel" class="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none text-sm appearance-none cursor-pointer hover:border-gray-300 transition-colors">
+                                <option value="">Chọn dòng xe</option>
+                                <option value="all">Tất cả dòng xe</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Search Button -->
+                        <div class="md:col-span-1 flex items-end">
+                            <button onclick="searchFromHero()" class="w-full bg-primary hover:bg-primary-dark text-white font-semibold px-4 py-2.5 rounded-lg transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                <span class="hidden xl:inline">Tìm kiếm</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         XE ĐANG HOT
+         =================================== -->
+    <section class="pt-32 pb-20 bg-white">
+        <div class="container mx-auto px-4">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+                    Xe đang <span class="text-primary">HOT</span>
+                </h2>
+                <p class="text-gray-600">Những mẫu xe được quan tâm nhiều nhất</p>
+            </div>
+
+            <!-- Hot Cars Grid -->
+            <div id="hotCarsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Hot cars will be rendered here by JavaScript -->
+            </div>
+
+            <!-- View All Button -->
+            <div class="text-center mt-10">
+                <a href="#cars" class="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-3 rounded-lg transition-all transform hover:scale-105 shadow-md">
+                    <span>Xem tất cả xe</span>
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         CÁC HÃNG XE
+         =================================== -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-3">
+                    Các hãng xe <span class="text-primary">nổi bật</span>
+                </h2>
+                <p class="text-gray-600">Đa dạng thương hiệu uy tín hàng đầu</p>
+            </div>
+
+            <!-- Brands Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <!-- Toyota -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Toyota_EU.svg/200px-Toyota_EU.svg.png" alt="Toyota" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Toyota</h3>
+                        <p class="text-xs text-gray-500 mt-1">120+ xe</p>
+                    </div>
+                </div>
+
+                <!-- Honda -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Honda_logo.svg/200px-Honda_logo.svg.png" alt="Honda" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Honda</h3>
+                        <p class="text-xs text-gray-500 mt-1">95+ xe</p>
+                    </div>
+                </div>
+
+                <!-- Mazda -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://logos-world.net/wp-content/uploads/2021/03/Mazda-Logo.png" alt="Mazda" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Mazda</h3>
+                        <p class="text-xs text-gray-500 mt-1">78+ xe</p>
+                    </div>
+                </div>
+
+                <!-- Hyundai -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/200px-Hyundai_Motor_Company_logo.svg.png" alt="Hyundai" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Hyundai</h3>
+                        <p class="text-xs text-gray-500 mt-1">85+ xe</p>
+                    </div>
+                </div>
+
+                <!-- Ford -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/200px-Ford_logo_flat.svg.png" alt="Ford" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Ford</h3>
+                        <p class="text-xs text-gray-500 mt-1">62+ xe</p>
+                    </div>
+                </div>
+
+                <!-- Mercedes -->
+                <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border-2 border-gray-100 hover:border-primary cursor-pointer">
+                    <div class="flex flex-col items-center">
+                        <div class="w-20 h-20 mb-3 flex items-center justify-center">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/200px-Mercedes-Logo.svg.png" alt="Mercedes" class="w-full h-full object-contain grayscale group-hover:grayscale-0 transition-all">
+                        </div>
+                        <h3 class="text-sm font-bold text-gray-900 group-hover:text-primary transition-colors">Mercedes</h3>
+                        <p class="text-xs text-gray-500 mt-1">45+ xe</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         TẠI SAO CHỌN CHÚNG TÔI
+         =================================== -->
+    <section class="py-20 bg-white" id="why-us">
+        <div class="container mx-auto px-4">
+            <!-- Section Title -->
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+                    Ưu điểm vượt trội
+                </span>
+                <h2 class="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+                    Tại sao chọn <span class="text-primary">CarShop</span>?
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Chúng tôi cam kết mang đến trải nghiệm mua xe tốt nhất với dịch vụ chuyên nghiệp và minh bạch
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Feature 1 -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-green-500 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Giá minh bạch</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Giá niêm yết rõ ràng, không phát sinh chi phí ẩn. Cam kết giá tốt nhất thị trường.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-blue-500 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Đại lý uy tín</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Hợp tác với hơn 1,000+ đại lý xe uy tín trên toàn quốc. Đảm bảo chất lượng xe.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-orange-500 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">An toàn giao dịch</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Không thanh toán trước. Xem xe trực tiếp và quyết định sau khi hài lòng.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <div class="inline-flex items-center justify-center w-14 h-14 bg-purple-500 rounded-xl mb-6">
+                        <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Hỗ trợ trả góp</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed">
+                        Tư vấn và hỗ trợ vay vốn với lãi suất ưu đãi. Duyệt nhanh chỉ trong 24h.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="bg-white rounded-2xl p-10 shadow-lg border border-gray-100">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                    <div>
+                        <div class="text-4xl font-bold text-primary mb-2">10,000+</div>
+                        <div class="text-sm text-gray-600">Xe đang bán</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-primary mb-2">50,000+</div>
+                        <div class="text-sm text-gray-600">Khách hàng hài lòng</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-primary mb-2">1,000+</div>
+                        <div class="text-sm text-gray-600">Đại lý uy tín</div>
+                    </div>
+                    <div>
+                        <div class="text-4xl font-bold text-primary mb-2">24/7</div>
+                        <div class="text-sm text-gray-600">Hỗ trợ khách hàng</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="text-center mt-12">
+                <a href="#cars" class="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-semibold px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-lg text-lg">
+                    <span>Khám phá ngay</span>
+                    <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ===================================
+         ĐÁNH GIÁ TỪ KHÁCH HÀNG
+         =================================== -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <!-- Section Title -->
+            <div class="text-center mb-12">
+                <span class="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
+                    Khách hàng nói gì về chúng tôi
+                </span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    Đánh giá từ <span class="text-primary">khách hàng</span>
+                </h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                    Hơn 50,000+ khách hàng đã tin tưởng và hài lòng với dịch vụ của CarShop
+                </p>
+            </div>
+
+            <!-- Reviews Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Review 1 -->
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <!-- Rating -->
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    </div>
+                    <!-- Review Text -->
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "Dịch vụ tuyệt vời! Tôi đã mua Toyota Camry tại CarShop và rất hài lòng. Nhân viên tư vấn nhiệt tình, giá cả minh bạch. Xe đúng như mô tả, không có chi phí phát sinh."
+                    </p>
+                    <!-- Customer Info -->
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+                        <img src="https://ui-avatars.com/api/?name=Nguyen+Van+A&background=CB3634&color=fff" alt="Nguyễn Văn A" class="w-12 h-12 rounded-full">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Nguyễn Văn A</h4>
+                            <p class="text-sm text-gray-500">Khách hàng tại Hà Nội</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <!-- Rating -->
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    </div>
+                    <!-- Review Text -->
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "Quy trình mua xe rất nhanh gọn và chuyên nghiệp. Được hỗ trợ vay vốn với lãi suất tốt. Đặc biệt là được xem xe trực tiếp trước khi quyết định, rất yên tâm!"
+                    </p>
+                    <!-- Customer Info -->
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Trần Thị B" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Trần Thị B</h4>
+                            <p class="text-sm text-gray-500">Khách hàng tại TP.HCM</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100">
+                    <!-- Rating -->
+                    <div class="flex items-center gap-1 mb-4">
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                    </div>
+                    <!-- Review Text -->
+                    <p class="text-gray-700 mb-4 leading-relaxed">
+                        "Tôi đã so sánh nhiều nơi và quyết định chọn CarShop. Giá tốt nhất thị trường, xe chất lượng, hậu mãi chu đáo. Đội ngũ nhân viên rất nhiệt tình và chuyên nghiệp."
+                    </p>
+                    <!-- Customer Info -->
+                    <div class="flex items-center gap-3 pt-4 border-t border-gray-200">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Lê Văn C" class="w-12 h-12 rounded-full object-cover">
+                        <div>
+                            <h4 class="font-semibold text-gray-900">Lê Văn C</h4>
+                            <p class="text-sm text-gray-500">Khách hàng tại Đà Nẵng</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Overall Rating -->
+            <div class="mt-12 text-center">
+                <div class="inline-flex items-center gap-3 bg-gradient-to-r from-primary/10 to-orange-500/10 px-8 py-4 rounded-2xl">
+                    <div class="flex items-center gap-1">
+                        <svg class="w-8 h-8 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                        </svg>
+                        <span class="text-4xl font-bold text-gray-900">4.9</span>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-sm font-semibold text-gray-900">Đánh giá trung bình</p>
+                        <p class="text-xs text-gray-600">Từ 2,500+ đánh giá</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         CALL TO ACTION
+         =================================== -->
+    <section class="relative py-20 bg-primary overflow-hidden">
+        <!-- Decorative shapes -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2"></div>
+        
+        <!-- Content -->
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <!-- Icon -->
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-white/20 rounded-2xl mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                </div>
+                
+                <!-- Heading -->
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-6">
+                    Sẵn sàng tìm chiếc xe mơ ước?
+                </h2>
+                
+                <!-- Description -->
+                <p class="text-xl text-white/90 mb-10 leading-relaxed max-w-2xl mx-auto">
+                    Hơn 10,000+ xe đang chờ bạn khám phá. Đặt lịch xem xe ngay hôm nay và nhận tư vấn miễn phí!
+                </p>
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+                    <a href="#cars" class="group inline-flex items-center justify-center bg-white hover:bg-gray-100 text-primary font-bold px-10 py-4 rounded-xl transition-all transform hover:scale-105 shadow-xl text-lg">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <span>Khám phá ngay</span>
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                    
+                    <a href="#contact" class="inline-flex items-center justify-center bg-transparent hover:bg-white/10 text-white font-semibold px-10 py-4 rounded-xl transition-all border-2 border-white hover:border-white text-lg">
+                        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                        </svg>
+                        <span>Liên hệ tư vấn</span>
+                    </a>
+                </div>
+                
+                <!-- Trust Badges -->
+                <div class="flex flex-wrap justify-center items-center gap-8 text-white">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Uy tín hàng đầu</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Giá minh bạch</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <span class="text-sm font-medium">Hỗ trợ 24/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         FOOTER - PROFESSIONAL DESIGN
+         =================================== -->
+    <footer class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-300" id="contact">
+        <!-- Main Footer Content -->
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Company Info -->
+                <div class="lg:col-span-1">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span class="text-2xl font-bold text-white">CarShop</span>
+                    </div>
+                    <p class="text-sm text-gray-400 leading-relaxed mb-6">
+                        Nền tảng mua bán xe ô tô uy tín, minh bạch và an toàn nhất Việt Nam.
+                    </p>
+                    <!-- Social Media -->
+                    <div class="flex items-center gap-3">
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-primary rounded-lg flex items-center justify-center transition-all transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-primary rounded-lg flex items-center justify-center transition-all transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073z"/>
+                                <path d="M12 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-primary rounded-lg flex items-center justify-center transition-all transform hover:scale-110">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Liên hệ -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 relative inline-block">
+                        Liên hệ
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-primary rounded-full"></span>
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3 group">
+                            <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Hotline</p>
+                                <a href="tel:1900xxxx" class="text-sm text-gray-300 hover:text-primary transition-colors font-medium">1900 xxxx</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Email</p>
+                                <a href="mailto:support@carshop.vn" class="text-sm text-gray-300 hover:text-primary transition-colors font-medium">support@carshop.vn</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 group">
+                            <svg class="w-5 h-5 text-primary mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-xs text-gray-500 mb-1">Địa chỉ</p>
+                                <p class="text-sm text-gray-300">Hà Nội, Việt Nam</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Liên kết -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 relative inline-block">
+                        Liên kết
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-primary rounded-full"></span>
+                    </h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="#" class="text-sm text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                Về chúng tôi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-sm text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                Điều khoản sử dụng
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-sm text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                Chính sách bảo mật
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-sm text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                Hướng dẫn mua xe
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-sm text-gray-400 hover:text-primary transition-colors flex items-center gap-2 group">
+                                <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                                </svg>
+                                Câu hỏi thường gặp
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Giờ làm việc & App Download -->
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-6 relative inline-block">
+                        Giờ làm việc
+                        <span class="absolute bottom-0 left-0 w-12 h-1 bg-primary rounded-full"></span>
+                    </h3>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-sm text-gray-400">Thứ 2 - Thứ 6</p>
+                                <p class="text-sm text-white font-medium">8:00 - 18:00</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <p class="text-sm text-gray-400">Thứ 7 - Chủ nhật</p>
+                                <p class="text-sm text-white font-medium">8:00 - 17:00</p>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <!-- App Download Badges -->
+                    <div class="space-y-2">
+                        <p class="text-xs text-gray-500 mb-3">Tải ứng dụng</p>
+                        <a href="#" class="block bg-gray-800 hover:bg-gray-700 rounded-lg p-2 transition-all">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+                                </svg>
+                                <div>
+                                    <p class="text-xs text-gray-400">Download on the</p>
+                                    <p class="text-sm text-white font-semibold">App Store</p>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="#" class="block bg-gray-800 hover:bg-gray-700 rounded-lg p-2 transition-all">
+                            <div class="flex items-center gap-2">
+                                <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.303 2.303-8.635-8.635z"/>
+                                </svg>
+                                <div>
+                                    <p class="text-xs text-gray-400">GET IT ON</p>
+                                    <p class="text-sm text-white font-semibold">Google Play</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="border-t border-gray-800">
+            <div class="container mx-auto px-4 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-gray-500">
+                        © 2024 CarShop. All rights reserved.
+                    </p>
+                    <div class="flex items-center gap-6">
+                        <a href="#" class="text-sm text-gray-500 hover:text-primary transition-colors">Chính sách cookie</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-primary transition-colors">Bản đồ trang</a>
+                        <a href="#" class="text-sm text-gray-500 hover:text-primary transition-colors">Liên hệ</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="home.js"></script>
+</body>
+</html>

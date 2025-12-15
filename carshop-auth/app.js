@@ -189,9 +189,8 @@ function redirectByRole(role) {
     
     // Redirect after 1 second
     setTimeout(() => {
-        console.log(`Redirecting to: ${redirectUrl}`);
-        // window.location.href = redirectUrl; // Uncomment in production
-        alert(`Mock Redirect: ${role} → ${redirectUrl}`);
+        console.log(`Redirecting to home page`);
+        window.location.href = '../home.html';
     }, 1000);
 }
 
