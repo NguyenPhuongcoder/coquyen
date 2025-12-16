@@ -571,9 +571,25 @@ function toggleFavorite() {
 // Render similar cars
 function renderSimilarCars() {
     const similarCarsContainer = document.getElementById('similarCars');
-    const similarCars = allCars
-        .filter(car => car.id !== currentCar.id && car.brand === currentCar.brand)
-        .slice(0, 4);
+    
+    // Lọc xe tương tự theo 2 tiêu chí:
+    // 1. Cùng hãng (ưu tiên cao nhất)
+    // 2. Cùng phân khúc giá (chênh lệch không quá 30%)
+    const priceRange = currentCar.price * 0.3; // 30% price range
+    
+    const sameBrandCars = allCars.filter(car => 
+        car.id !== currentCar.id && 
+        car.brand === currentCar.brand
+    );
+    
+    const similarPriceCars = allCars.filter(car => 
+        car.id !== currentCar.id && 
+        car.brand !== currentCar.brand &&
+        Math.abs(car.price - currentCar.price) <= priceRange
+    );
+    
+    // Kết hợp: cùng hãng trước, sau đó cùng phân khúc giá
+    const similarCars = [...sameBrandCars, ...similarPriceCars].slice(0, 4);
     
     if (similarCars.length === 0) {
         similarCarsContainer.innerHTML = '<p class="text-gray-500 col-span-full text-center py-8">Không có xe tương tự</p>';
@@ -602,6 +618,8 @@ function renderSimilarCars() {
             </div>
         `;
     }).join('');
+    
+    console.log(`📊 Hiển thị ${similarCars.length} xe tương tự (${sameBrandCars.length} cùng hãng, ${similarPriceCars.length} cùng phân khúc giá)`);
 }
 
 // View car detail
@@ -619,7 +637,96 @@ function sendMessage() {
 }
 
 function bookTestDrive() {
+    // Đặt lịch xem xe tại showroom
     window.location.href = `booking.html?carId=${currentCar.id}`;
+}
+
+// Deposit Modal Functions
+function openDepositModal() {
+    if (!currentCar) return;
+    
+    // Populate modal with car info
+    document.getElementById('modalCarImage').src = currentCar.images[0];
+    document.getElementById('modalCarName').textContent = currentCar.name;
+    document.getElementById('modalCarBrand').textContent = currentCar.brand;
+    document.getElementById('modalCarPrice').textContent = formatPrice(currentCar.price) + ' VNĐ';
+    
+    // Calculate deposit amounts
+    updateDepositAmount();
+    
+    // Reset checkbox
+    document.getElementById('depositConfirmCheckbox').checked = false;
+    document.getElementById('confirmDepositBtn').disabled = true;
+    
+    // Show modal
+    document.getElementById('depositModal').classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    console.log('📋 Opened deposit modal for:', currentCar.name);
+}
+
+function closeDepositModal() {
+    document.getElementById('depositModal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+
+function updateDepositAmount() {
+    if (!currentCar) return;
+    
+    const selectedPercent = document.querySelector('input[name="depositPercent"]:checked').value;
+    const deposit5 = Math.round(currentCar.price * 0.05);
+    const deposit10 = Math.round(currentCar.price * 0.10);
+    
+    document.getElementById('deposit5').textContent = formatPrice(deposit5) + ' VNĐ';
+    document.getElementById('deposit10').textContent = formatPrice(deposit10) + ' VNĐ';
+    
+    // Update radio button styles
+    document.querySelectorAll('.deposit-option').forEach(option => {
+        const radio = option.querySelector('input[type="radio"]');
+        const div = option.querySelector('div');
+        
+        if (radio.checked) {
+            div.classList.remove('border-gray-300', 'bg-white');
+            div.classList.add('border-primary', 'bg-red-50');
+        } else {
+            div.classList.remove('border-primary', 'bg-red-50');
+            div.classList.add('border-gray-300', 'bg-white');
+        }
+    });
+}
+
+function toggleDepositButton() {
+    const checkbox = document.getElementById('depositConfirmCheckbox');
+    const button = document.getElementById('confirmDepositBtn');
+    button.disabled = !checkbox.checked;
+}
+
+function confirmDeposit() {
+    if (!currentCar) return;
+    
+    const selectedPercent = document.querySelector('input[name="depositPercent"]:checked').value;
+    const depositAmount = Math.round(currentCar.price * (parseInt(selectedPercent) / 100));
+    
+    console.log('%c💰 CHUYỂN ĐẾN TRANG ĐẶT CỌC', 'color: #10B981; font-size: 18px; font-weight: bold;');
+    console.log('═════════════════════════════════════');
+    console.log('🚗 Thông tin xe:');
+    console.log(`   • ID: ${currentCar.id}`);
+    console.log(`   • Tên xe: ${currentCar.name}`);
+    console.log(`   • Hãng: ${currentCar.brand}`);
+    console.log(`   • Giá bán: ${formatPrice(currentCar.price)} VNĐ`);
+    console.log('─────────────────────────────────────');
+    console.log('💵 Thông tin đặt cọc:');
+    console.log(`   • Mức đặt cọc: ${selectedPercent}%`);
+    console.log(`   • Số tiền đặt cọc: ${formatPrice(depositAmount)} VNĐ`);
+    console.log('─────────────────────────────────────');
+    console.log('📌 Trạng thái: Đặt cọc trực tiếp (chưa xem xe)');
+    console.log('═════════════════════════════════════');
+    
+    // Close modal
+    closeDepositModal();
+    
+    // Redirect to deposit page to fill information
+    window.location.href = `deposit.html?carId=${currentCar.id}&depositPercent=${selectedPercent}&direct=true`;
 }
 
 // UI Interactions

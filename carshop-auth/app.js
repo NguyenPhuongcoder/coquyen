@@ -178,18 +178,24 @@ function mockLoginAPI(credentials) {
 function redirectByRole(role) {
     const routes = {
         'USER': '../home.html',
-        'SELLER': '../home.html', // Seller cũng vào home nhưng có quyền khác
-        'ADMIN': '../home.html'   // Admin cũng vào home nhưng có quyền khác
+        'SELLER': '../home.html',
+        'ADMIN': '../admin-dashboard.html'  // Admin vào trang dashboard
     };
     
     const redirectUrl = routes[role] || '../home.html';
     
-    // Show success message
+    // Show success message with role info
+    const successText = successMessage.querySelector('p');
+    if (role === 'ADMIN') {
+        successText.textContent = 'Đăng nhập thành công! Đang chuyển đến Admin Dashboard...';
+    } else {
+        successText.textContent = 'Đăng nhập thành công! Đang chuyển hướng...';
+    }
     successMessage.classList.remove('hidden');
     
     // Redirect after 1 second
     setTimeout(() => {
-        console.log(`Redirecting ${role} to: ${redirectUrl}`);
+        console.log(`%c✅ Redirecting ${role} to: ${redirectUrl}`, 'color: #10B981; font-weight: bold;');
         window.location.href = redirectUrl;
     }, 1000);
 }
@@ -287,7 +293,25 @@ window.addEventListener('DOMContentLoaded', function() {
 // Console Info for Testing
 // ===================================
 console.log('%c🚗 CarShop Authentication System', 'color: #CB3634; font-size: 16px; font-weight: bold;');
+console.log('═════════════════════════════════════════════════════════════');
 console.log('%cMock Test Accounts:', 'color: #4B5563; font-size: 14px; font-weight: bold;');
-console.log('👤 Customer: customer@carshop.vn / 0901234567 | Password: 123456');
-console.log('🏪 Seller: seller@carshop.vn / 0912345678 | Password: 123456');
-console.log('⚙️ Admin: admin@carshop.vn / 0923456789 | Password: 123456');
+console.log('');
+console.log('%c👤 Customer Account:', 'color: #3B82F6; font-weight: bold;');
+console.log('   Email: customer@carshop.vn');
+console.log('   Phone: 0901234567');
+console.log('   Password: 123456');
+console.log('   → Redirect to: home.html');
+console.log('');
+console.log('%c🏪 Seller Account:', 'color: #10B981; font-weight: bold;');
+console.log('   Email: seller@carshop.vn');
+console.log('   Phone: 0912345678');
+console.log('   Password: 123456');
+console.log('   → Redirect to: home.html');
+console.log('');
+console.log('%c⚙️ Admin Account:', 'color: #CB3634; font-weight: bold;');
+console.log('   Email: admin@carshop.vn');
+console.log('   Phone: 0923456789');
+console.log('   Password: 123456');
+console.log('   → Redirect to: admin-dashboard.html');
+console.log('');
+console.log('═════════════════════════════════════════════════════════════');

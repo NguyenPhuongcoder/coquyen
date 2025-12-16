@@ -75,10 +75,10 @@
         }
         
         .deposit-amount {
-            font-size: 28px;
-            font-weight: 900;
-            color: #CB3634;
-            letter-spacing: -0.5px;
+            font-size: 22px;
+            font-weight: 800;
+            color: #D84315;
+            letter-spacing: -0.3px;
         }
         
         .payment-method {
@@ -213,32 +213,39 @@
             background: #E0E0E0;
             margin: 24px 0;
         }
+        
+        .saved-address-card:hover {
+            border-color: #CB3634 !important;
+            box-shadow: 0 2px 4px rgba(203, 54, 52, 0.1);
+        }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
-    <header style="background: #FFFFFF; border-bottom: 1px solid #E0E0E0; position: sticky; top: 0; z-index: 50;">
+    <!-- HEADER - Simplified for deposit flow -->
+    <header style="background: #FFFFFF; border-bottom: 2px solid #E0E0E0; position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between" style="height: 64px;">
-                <div class="flex items-center">
-                    <a href="home.html" class="flex items-center gap-3">
-                        <div style="width: 40px; height: 40px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
-                            <svg style="width: 24px; height: 24px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                            </svg>
-                        </div>
-                        <span style="font-size: 20px; font-weight: 700; color: #1A1A1A;">CarShop</span>
-                    </a>
-                </div>
-                <div class="flex items-center gap-4">
-                    <button onclick="window.history.back()" style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; color: #666666; background: transparent; border: 1px solid #D0D0D0; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s;">
-                        <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            <div class="flex items-center justify-between" style="height: 72px;">
+                <!-- Logo Only (not clickable to prevent navigation away) -->
+                <div class="flex items-center gap-3">
+                    <div style="width: 44px; height: 44px; background: #CB3634; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 26px; height: 26px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
-                        <span>Quay lại</span>
-                    </button>
+                    </div>
+                    <div>
+                        <div style="font-size: 22px; font-weight: 900; color: #1A1A1A; letter-spacing: -0.5px;">CarShop</div>
+                        <div style="font-size: 11px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: -2px;">Xác nhận đặt cọc</div>
+                    </div>
                 </div>
+                
+                <!-- Back Button -->
+                <button onclick="window.history.back()" style="display: flex; align-items: center; gap: 10px; padding: 10px 20px; color: #666666; background: #F5F5F5; border: 1px solid #D0D0D0; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s;">
+                    <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    <span>Quay lại</span>
+                </button>
             </div>
         </div>
     </header>
@@ -324,23 +331,228 @@
                                 <h3 class="section-title" style="margin: 0;">Thông tin đặt cọc</h3>
                             </div>
                             <div class="corporate-card-body">
-                                <div class="info-row">
+                                <!-- Giá bán xe -->
+                                <div class="info-row" style="padding: 10px 0;">
                                     <span class="info-label">Giá bán xe</span>
-                                    <span id="priceDisplay" class="info-value" style="font-size: 16px; font-weight: 700;"></span>
+                                    <span id="priceDisplay" class="info-value" style="font-size: 15px; font-weight: 600; color: #333333;"></span>
                                 </div>
-                                <div class="info-row" style="padding: 20px 0; background: #FAFAFA; margin: 16px -24px; padding-left: 24px; padding-right: 24px;">
-                                    <span style="font-size: 15px; font-weight: 700; color: #1A1A1A;">Tiền đặt cọc (10%)</span>
-                                    <span id="depositAmount" class="deposit-amount"></span>
+                                
+                                <!-- Tiền đặt cọc - Highlighted but not aggressive -->
+                                <div style="padding: 24px 0; margin: 20px 0; border-top: 2px solid #E0E0E0; border-bottom: 2px solid #E0E0E0;">
+                                    <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                                        <div>
+                                            <div style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 4px;">
+                                                Tiền đặt cọc – 10% giá xe 
+                                                <span style="display: inline-block; background: #FFF5F5; color: #CB3634; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 3px; margin-left: 6px; font-style: italic;">Giữ xe</span>
+                                            </div>
+                                            <div style="font-size: 12px; color: #999999; font-weight: 500; font-style: italic;">
+                                                Mức đặt cọc tiêu chuẩn theo quy định showroom
+                                            </div>
+                                        </div>
+                                        <div style="text-align: right;">
+                                            <div id="depositAmount" style="font-size: 22px; font-weight: 800; color: #D84315; letter-spacing: -0.3px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="info-row">
-                                    <span class="info-label">Số tiền còn lại</span>
-                                    <span id="remainingAmount" class="info-value" style="font-size: 16px; font-weight: 700;"></span>
+                                
+                                <!-- Số tiền còn lại -->
+                                <div class="info-row" style="padding: 10px 0;">
+                                    <div>
+                                        <div class="info-label" style="margin-bottom: 4px;">Số tiền còn lại</div>
+                                        <div style="font-size: 11px; color: #999999; font-style: italic;">
+                                            Thanh toán khi ký hợp đồng tại showroom
+                                        </div>
+                                    </div>
+                                    <span id="remainingAmount" class="info-value" style="font-size: 15px; font-weight: 600; color: #666666;"></span>
                                 </div>
                                 
                                 <div class="divider"></div>
                                 
+                                <!-- Alert box - Positive first, then constraint -->
                                 <div class="alert-box">
-                                    <strong>Lưu ý quan trọng:</strong> Số tiền còn lại sẽ được thanh toán khi ký hợp đồng mua bán tại showroom. Tiền đặt cọc không được hoàn trả nếu khách hàng đơn phương hủy giao dịch.
+                                    <div style="margin-bottom: 8px;">
+                                        <strong>💡 Ý nghĩa đặt cọc:</strong> Tiền đặt cọc nhằm giữ xe và đảm bảo quyền ưu tiên mua cho khách hàng.
+                                    </div>
+                                    <div style="font-size: 12px; line-height: 1.6; color: #666666;">
+                                        Khoản tiền còn lại sẽ được thanh toán khi ký hợp đồng mua bán tại showroom. Trường hợp khách hàng đơn phương hủy giao dịch, tiền đặt cọc sẽ không được hoàn lại.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pickup Schedule -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-header">
+                                <h3 class="section-title" style="margin: 0;">Thông tin lịch lấy xe</h3>
+                            </div>
+                            <div class="corporate-card-body">
+                                <!-- Pickup Date -->
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Ngày dự kiến lấy xe <span style="color: #CB3634;">*</span>
+                                    </label>
+                                    <input 
+                                        type="date" 
+                                        id="pickupDate"
+                                        class="form-input"
+                                        style="width: 100%; padding: 12px 16px; border: 1px solid #D0D0D0; border-radius: 4px; font-size: 14px; font-weight: 500; color: #1A1A1A;"
+                                        required
+                                    >
+                                    <div style="font-size: 12px; color: #666666; margin-top: 6px; font-style: italic;">
+                                        💡 Thời gian lấy xe có thể thay đổi tùy vào tiến độ hoàn tất thủ tục.
+                                    </div>
+                                </div>
+
+                                <!-- Pickup Time Slot -->
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Khung giờ lấy xe <span style="color: #CB3634;">*</span>
+                                    </label>
+                                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                                        <div class="time-slot-option">
+                                            <input type="radio" id="morning" name="timeSlot" value="morning" checked style="display: none;">
+                                            <label for="morning" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 12px 16px; border: 2px solid #CB3634; border-radius: 4px; background: #FFF5F5;">
+                                                <div style="width: 20px; height: 20px; border: 2px solid #CB3634; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <div style="width: 10px; height: 10px; background: #CB3634; border-radius: 50%;" class="time-radio-dot"></div>
+                                                </div>
+                                                <span style="font-size: 14px; font-weight: 600; color: #1A1A1A;">Buổi sáng (08:00 – 11:30)</span>
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="time-slot-option">
+                                            <input type="radio" id="afternoon" name="timeSlot" value="afternoon" style="display: none;">
+                                            <label for="afternoon" style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 12px 16px; border: 2px solid #D0D0D0; border-radius: 4px; background: #FFFFFF;">
+                                                <div style="width: 20px; height: 20px; border: 2px solid #D0D0D0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <div style="width: 10px; height: 10px; background: #CB3634; border-radius: 50%; display: none;" class="time-radio-dot"></div>
+                                                </div>
+                                                <span style="font-size: 14px; font-weight: 600; color: #1A1A1A;">Buổi chiều (13:30 – 17:00)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Pickup Location -->
+                                <div style="margin-bottom: 20px;">
+                                    <label style="display: block; font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Địa điểm nhận xe <span style="color: #CB3634;">*</span>
+                                    </label>
+                                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                                        <!-- Showroom Option -->
+                                        <div class="location-option">
+                                            <input type="radio" id="showroomPickup" name="pickupLocation" value="showroom" checked style="display: none;">
+                                            <label for="showroomPickup" style="display: flex; gap: 16px; cursor: pointer; padding: 18px 20px; border: 2px solid #CB3634; border-radius: 8px; background: #FFF5F5; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(203, 54, 52, 0.1);">
+                                                <div style="flex-shrink: 0;">
+                                                    <div style="width: 24px; height: 24px; border: 2px solid #CB3634; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #FFFFFF;">
+                                                        <div style="width: 12px; height: 12px; background: #CB3634; border-radius: 50%;" class="location-radio-dot"></div>
+                                                    </div>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                                        <svg style="width: 20px; height: 20px; color: #CB3634;" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                                        </svg>
+                                                        <span style="font-size: 15px; font-weight: 700; color: #1A1A1A;">Nhận xe tại showroom CarShop Quận 1</span>
+                                                    </div>
+                                                    <div style="font-size: 13px; color: #666666; line-height: 1.5; padding-left: 28px;">
+                                                        Miễn phí – Nhận xe sau khi hoàn tất thủ tục
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        
+                                        <!-- Delivery Option -->
+                                        <div class="location-option">
+                                            <input type="radio" id="deliveryPickup" name="pickupLocation" value="delivery" style="display: none;">
+                                            <label for="deliveryPickup" style="display: flex; gap: 16px; cursor: pointer; padding: 16px 20px; border: 1px solid #E0E0E0; border-radius: 8px; background: #FFFFFF; transition: all 0.2s ease;">
+                                                <div style="flex-shrink: 0;">
+                                                    <div style="width: 24px; height: 24px; border: 2px solid #D0D0D0; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #FFFFFF;">
+                                                        <div style="width: 12px; height: 12px; background: #CB3634; border-radius: 50%; display: none;" class="location-radio-dot"></div>
+                                                    </div>
+                                                </div>
+                                                <div style="flex: 1;">
+                                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                                                        <svg style="width: 20px; height: 20px; color: #999999;" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                                                            <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/>
+                                                        </svg>
+                                                        <span style="font-size: 15px; font-weight: 600; color: #1A1A1A;">Giao xe tận nơi</span>
+                                                    </div>
+                                                    <div style="font-size: 13px; color: #999999; line-height: 1.5; padding-left: 28px;">
+                                                        Phí giao xe sẽ được tư vấn và xác nhận sau
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Delivery Address (shown when delivery is selected) -->
+                                <div id="deliveryAddressSection" style="margin-bottom: 20px; display: none;">
+                                    <label style="display: block; font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Địa chỉ giao xe <span style="color: #CB3634;">*</span>
+                                    </label>
+                                    
+                                    <!-- Saved Addresses -->
+                                    <div id="savedAddressesList" style="margin-bottom: 12px;">
+                                        <!-- Will be populated by JavaScript -->
+                                    </div>
+                                    
+                                    <!-- New Address Input -->
+                                    <div id="newAddressInput" style="display: none;">
+                                        <input 
+                                            type="text" 
+                                            id="deliveryAddress"
+                                            placeholder="Nhập địa chỉ đầy đủ (số nhà, đường, phường/xã, quận/huyện, tỉnh/thành phố)"
+                                            style="width: 100%; padding: 12px 16px; border: 1px solid #D0D0D0; border-radius: 4px; font-size: 14px; font-weight: 500; color: #1A1A1A; margin-bottom: 8px;"
+                                        >
+                                    </div>
+                                    
+                                    <!-- Add New Address Button -->
+                                    <button 
+                                        type="button" 
+                                        id="addNewAddressBtn"
+                                        onclick="toggleNewAddressInput()"
+                                        style="padding: 10px 16px; background: #FFFFFF; border: 1px solid #D0D0D0; border-radius: 4px; font-size: 13px; font-weight: 600; color: #666666; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 12px; transition: all 0.2s ease;"
+                                    >
+                                        <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                                        </svg>
+                                        <span>Thêm địa chỉ mới</span>
+                                    </button>
+                                    
+                                    <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #3B82F6; padding: 12px; border-radius: 4px;">
+                                        <div style="font-size: 12px; color: #1E40AF; line-height: 1.6;">
+                                            <strong>📍 Lưu ý:</strong> Phí giao xe sẽ được tính dựa trên khoảng cách từ showroom đến địa chỉ của bạn. Nhân viên sẽ liên hệ xác nhận chi phí trước khi giao xe.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Notes -->
+                                <div style="margin-bottom: 0;">
+                                    <label style="display: block; font-size: 13px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                        Ghi chú (không bắt buộc)
+                                    </label>
+                                    <textarea 
+                                        id="pickupNotes"
+                                        rows="3"
+                                        placeholder="Ghi chú thêm cho showroom (nếu có)"
+                                        style="width: 100%; padding: 12px 16px; border: 1px solid #D0D0D0; border-radius: 4px; font-size: 14px; font-weight: 500; color: #1A1A1A; resize: vertical; font-family: inherit;"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warning Box -->
+                        <div style="background: #FFFBEB; border: 1px solid #FDE68A; border-left: 4px solid #F59E0B; padding: 16px 20px; border-radius: 4px;">
+                            <div style="display: flex; gap: 12px;">
+                                <svg style="width: 20px; height: 20px; color: #F59E0B; flex-shrink: 0; margin-top: 2px;" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                                <div>
+                                    <div style="font-size: 13px; font-weight: 700; color: #92400E; margin-bottom: 4px;">⚠️ Lưu ý quan trọng</div>
+                                    <div style="font-size: 13px; color: #78350F; line-height: 1.6;">
+                                        Lịch lấy xe là lịch <strong>dự kiến</strong>. Thời gian chính thức sẽ được xác nhận sau khi hoàn tất hợp đồng mua bán và các thủ tục liên quan.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +603,7 @@
                                 <div class="checkbox-container">
                                     <input type="checkbox" id="confirmCheckbox">
                                     <label for="confirmCheckbox" style="font-size: 14px; color: #333333; line-height: 1.6; cursor: pointer; font-weight: 500;">
-                                        Tôi xác nhận đã đọc, hiểu rõ và đồng ý với các điều khoản đặt cọc mua xe. Tôi cam kết thanh toán đầy đủ số tiền còn lại khi ký hợp đồng mua bán tại showroom.
+                                        Tôi xác nhận đã đọc, hiểu và đồng ý với các điều khoản đặt cọc mua xe. Tôi đồng ý với lịch lấy xe dự kiến và cam kết hoàn tất các thủ tục cần thiết trước ngày nhận xe.
                                     </label>
                                 </div>
                             </div>

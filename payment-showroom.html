@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đặt cọc tại showroom - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        
+        button:hover {
+            opacity: 0.9;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header style="background: #FFFFFF; border-bottom: 2px solid #E0E0E0; position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between" style="height: 72px;">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div style="width: 44px; height: 44px; background: #CB3634; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 26px; height: 26px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 22px; font-weight: 900; color: #1A1A1A; letter-spacing: -0.5px;">CarShop</div>
+                        <div style="font-size: 11px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: -2px;">Đặt cọc tại showroom</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="min-height: calc(100vh - 72px); padding: 40px 0; background: #F5F5F5;">
+        <div class="container mx-auto px-4">
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                
+                <!-- Page Header -->
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h1 style="font-size: 28px; font-weight: 900; color: #1A1A1A; margin-bottom: 8px; letter-spacing: -0.5px;">Đặt cọc tại showroom</h1>
+                    <p style="font-size: 14px; color: #666666; font-weight: 500;">Xe sẽ được giữ trong thời gian quy định để bạn đến showroom đặt cọc</p>
+                </div>
+
+                <!-- Status Badge -->
+                <div id="statusBadge" style="background: #FFFFFF; border: 2px solid #F59E0B; border-radius: 6px; padding: 16px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <div class="pulse-animation" style="width: 10px; height: 10px; background: #F59E0B; border-radius: 50%;"></div>
+                        <span style="font-size: 15px; font-weight: 700; color: #1A1A1A; text-transform: uppercase; letter-spacing: 0.3px;">Đang giữ xe – Chờ thanh toán tại showroom</span>
+                    </div>
+                </div>
+
+                <!-- Transaction Summary Card -->
+                <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                    <h2 style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Thông tin giao dịch</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Tên xe</p>
+                            <p id="carName" style="font-size: 14px; font-weight: 600; color: #1A1A1A;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Giá xe</p>
+                            <p id="carPrice" style="font-size: 14px; font-weight: 600; color: #1A1A1A;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Số tiền cần đặt cọc</p>
+                            <p id="depositAmount" style="font-size: 18px; font-weight: 900; color: #CB3634;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Mã đặt cọc</p>
+                            <p id="depositCode" style="font-size: 14px; font-weight: 700; color: #1A1A1A; font-family: monospace;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Countdown Timer Card -->
+                <div style="background: #FFFFFF; border: 2px solid #E0E0E0; border-radius: 6px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);">
+                    <div style="text-align: center; margin-bottom: 24px;">
+                        <h2 style="font-size: 13px; font-weight: 700; color: #666666; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.8px;">Thời hạn giữ xe</h2>
+                        <p id="deadlineDate" style="font-size: 18px; font-weight: 700; color: #1A1A1A;"></p>
+                    </div>
+
+                    <!-- Countdown Display -->
+                    <div style="display: flex; justify-content: center; gap: 16px; margin-bottom: 20px;">
+                        <div class="countdown-box" style="background: linear-gradient(135deg, #CB3634 0%, #B02E2B 100%); border-radius: 6px; padding: 20px 16px; min-width: 80px; text-align: center; box-shadow: 0 4px 12px rgba(203, 54, 52, 0.25);">
+                            <div id="hoursDisplay" style="font-size: 36px; line-height: 1; font-weight: 900; color: #FFFFFF;">00</div>
+                            <div style="font-size: 11px; margin-top: 6px; color: rgba(255, 255, 255, 0.85); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Giờ</div>
+                        </div>
+                        <div style="font-size: 36px; font-weight: 900; color: #D1D5DB; align-self: center; padding-bottom: 20px;">:</div>
+                        <div class="countdown-box" style="background: linear-gradient(135deg, #CB3634 0%, #B02E2B 100%); border-radius: 6px; padding: 20px 16px; min-width: 80px; text-align: center; box-shadow: 0 4px 12px rgba(203, 54, 52, 0.25);">
+                            <div id="minutesDisplay" style="font-size: 36px; line-height: 1; font-weight: 900; color: #FFFFFF;">00</div>
+                            <div style="font-size: 11px; margin-top: 6px; color: rgba(255, 255, 255, 0.85); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Phút</div>
+                        </div>
+                        <div style="font-size: 36px; font-weight: 900; color: #D1D5DB; align-self: center; padding-bottom: 20px;">:</div>
+                        <div class="countdown-box" style="background: linear-gradient(135deg, #CB3634 0%, #B02E2B 100%); border-radius: 6px; padding: 20px 16px; min-width: 80px; text-align: center; box-shadow: 0 4px 12px rgba(203, 54, 52, 0.25);">
+                            <div id="secondsDisplay" style="font-size: 36px; line-height: 1; font-weight: 900; color: #FFFFFF;">00</div>
+                            <div style="font-size: 11px; margin-top: 6px; color: rgba(255, 255, 255, 0.85); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Giây</div>
+                        </div>
+                    </div>
+
+                    <div style="background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 4px; padding: 12px; text-align: center;">
+                        <p style="font-size: 12px; color: #991B1B; font-weight: 600;">
+                            ⚠️ Nếu quá thời hạn, yêu cầu đặt cọc sẽ tự động hủy
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Showroom Info Card -->
+                <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                    <h2 style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Thông tin showroom</h2>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <svg style="width: 20px; height: 20px; color: #CB3634; flex-shrink: 0; margin-top: 2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                            <div>
+                                <p style="font-size: 12px; color: #999999; margin-bottom: 2px;">Tên showroom</p>
+                                <p style="font-size: 14px; font-weight: 600; color: #1A1A1A;">CarShop Quận 1</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <svg style="width: 20px; height: 20px; color: #CB3634; flex-shrink: 0; margin-top: 2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <div>
+                                <p style="font-size: 12px; color: #999999; margin-bottom: 2px;">Địa chỉ</p>
+                                <p style="font-size: 14px; font-weight: 600; color: #1A1A1A;">123 Nguyễn Văn Linh, Quận 1, TP.HCM</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <svg style="width: 20px; height: 20px; color: #CB3634; flex-shrink: 0; margin-top: 2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <div>
+                                <p style="font-size: 12px; color: #999999; margin-bottom: 2px;">Giờ làm việc</p>
+                                <p style="font-size: 14px; font-weight: 600; color: #1A1A1A;">08:00 – 17:30</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; align-items: start; gap: 12px;">
+                            <svg style="width: 20px; height: 20px; color: #CB3634; flex-shrink: 0; margin-top: 2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                            </svg>
+                            <div>
+                                <p style="font-size: 12px; color: #999999; margin-bottom: 2px;">Hotline</p>
+                                <p style="font-size: 14px; font-weight: 700; color: #CB3634;">1900 1234</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warning Box -->
+                <div style="background: #FFFBEB; border: 1px solid #FCD34D; border-left: 3px solid #F59E0B; padding: 16px; border-radius: 4px; margin-bottom: 24px;">
+                    <div style="display: flex; gap: 12px;">
+                        <svg style="width: 20px; height: 20px; color: #F59E0B; flex-shrink: 0; margin-top: 2px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                        </svg>
+                        <div style="flex: 1;">
+                            <p style="font-size: 13px; font-weight: 700; color: #92400E; margin-bottom: 8px;">Lưu ý quan trọng</p>
+                            <ul style="font-size: 13px; color: #78350F; line-height: 1.6; padding-left: 18px; list-style: disc;">
+                                <li>Xe chỉ được giữ trong thời gian quy định</li>
+                                <li>Vui lòng đến showroom đúng thời hạn để hoàn tất đặt cọc</li>
+                                <li>Nếu không đến đúng hạn, hệ thống sẽ tự động hủy yêu cầu giữ xe</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <button onclick="openMaps()" style="width: 100%; padding: 18px; background: #CB3634; color: #FFFFFF; font-weight: 700; font-size: 15px; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 2px 8px rgba(203, 54, 52, 0.25); display: flex; align-items: center; justify-content: center; gap: 10px;">
+                        <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Xem chỉ đường đến showroom</span>
+                    </button>
+                    
+                    <button onclick="goToHome()" style="width: 100%; padding: 14px; background: #FFFFFF; color: #666666; font-weight: 600; font-size: 14px; border: 1px solid #D1D5DB; border-radius: 6px; cursor: pointer; transition: all 0.2s;">
+                        Về trang chủ
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="background: #1A1A1A; color: #999999; margin-top: 60px; border-top: 1px solid #333333;">
+        <div class="container mx-auto px-4" style="padding-top: 40px; padding-bottom: 40px;">
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 36px; height: 36px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 20px; height: 20px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <span style="font-size: 20px; font-weight: 700; color: #FFFFFF;">CarShop</span>
+                </div>
+                <p style="font-size: 13px; color: #666666;">&copy; 2024 CarShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="payment-showroom.js"></script>
+</body>
+</html>

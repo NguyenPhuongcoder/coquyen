@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn chuyển khoản đặt cọc - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .7;
+            }
+        }
+        
+        .success-checkmark {
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header style="background: #FFFFFF; border-bottom: 2px solid #E0E0E0; position: sticky; top: 0; z-index: 50; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between" style="height: 72px;">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div style="width: 44px; height: 44px; background: #CB3634; border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 26px; height: 26px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div style="font-size: 22px; font-weight: 900; color: #1A1A1A; letter-spacing: -0.5px;">CarShop</div>
+                        <div style="font-size: 11px; font-weight: 600; color: #999999; text-transform: uppercase; letter-spacing: 0.5px; margin-top: -2px;">Chuyển khoản đặt cọc</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="min-height: calc(100vh - 72px); padding: 40px 0; background: #F5F5F5;">
+        <div class="container mx-auto px-4">
+            
+            <div style="max-width: 800px; margin: 0 auto;">
+                
+                <!-- Page Header -->
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h1 style="font-size: 28px; font-weight: 900; color: #1A1A1A; margin-bottom: 8px; letter-spacing: -0.5px;">Hướng dẫn chuyển khoản đặt cọc</h1>
+                    <p style="font-size: 14px; color: #666666; font-weight: 500;">Quét mã QR để chuyển khoản. Hệ thống sẽ tự động xác nhận.</p>
+                </div>
+
+                <!-- Transaction Summary Card -->
+                <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                    <h2 style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Thông tin giao dịch</h2>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Tên xe</p>
+                            <p id="carName" style="font-size: 14px; font-weight: 600; color: #1A1A1A;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Giá xe</p>
+                            <p id="carPrice" style="font-size: 14px; font-weight: 600; color: #1A1A1A;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Số tiền đặt cọc</p>
+                            <p id="depositAmount" style="font-size: 18px; font-weight: 900; color: #CB3634;"></p>
+                        </div>
+                        <div>
+                            <p style="font-size: 12px; color: #999999; margin-bottom: 4px;">Mã đặt cọc</p>
+                            <p id="depositCode" style="font-size: 14px; font-weight: 700; color: #1A1A1A; font-family: monospace;"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR Code Card -->
+                <div id="qrCard" style="background: #FFFFFF; border: 2px solid #E0E0E0; border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); text-align: center;">
+                    <h2 style="font-size: 18px; font-weight: 700; color: #1A1A1A; margin-bottom: 20px;">Quét mã QR để chuyển khoản</h2>
+                    
+                    <!-- QR Code Placeholder -->
+                    <div style="display: inline-block; padding: 20px; background: #FFFFFF; border: 2px solid #E0E0E0; border-radius: 12px; margin-bottom: 16px;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=CarShop-Deposit-Demo" alt="QR Code" style="width: 250px; height: 250px; display: block;">
+                    </div>
+                    
+                    <p style="font-size: 13px; color: #666666; font-style: italic;">💡 Mã QR đã bao gồm số tiền và nội dung chuyển khoản</p>
+                </div>
+
+                <!-- Bank Info Card -->
+                <div style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                    <h3 style="font-size: 14px; font-weight: 700; color: #1A1A1A; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Thông tin ngân hàng</h3>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F0F0;">
+                            <span style="font-size: 13px; color: #666666;">Ngân hàng</span>
+                            <span style="font-size: 13px; font-weight: 600; color: #1A1A1A;">Vietcombank</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #F0F0F0;">
+                            <span style="font-size: 13px; color: #666666;">Chủ tài khoản</span>
+                            <span style="font-size: 13px; font-weight: 600; color: #1A1A1A;">CÔNG TY CARSHOP</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 10px 0;">
+                            <span style="font-size: 13px; color: #666666;">Số tài khoản</span>
+                            <span style="font-size: 13px; font-weight: 700; color: #1A1A1A; font-family: monospace;">0123 456 789</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Card -->
+                <div id="statusCard" style="background: #FFFFFF; border: 1px solid #E0E0E0; border-radius: 8px; padding: 20px; margin-bottom: 24px; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                        <div id="statusIcon" class="pulse-animation" style="width: 40px; height: 40px; background: #FEF3C7; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                            <svg style="width: 20px; height: 20px; color: #F59E0B;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 id="statusTitle" style="font-size: 16px; font-weight: 700; color: #F59E0B; margin-bottom: 2px;">Đang chờ xác nhận chuyển khoản</h3>
+                            <p id="statusText" style="font-size: 12px; color: #666666;">Sau khi chuyển khoản thành công, trạng thái sẽ được cập nhật tự động trong vài phút.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Info Box -->
+                <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #3B82F6; padding: 16px; border-radius: 6px; margin-bottom: 24px;">
+                    <div style="font-size: 13px; color: #1E40AF; line-height: 1.6;">
+                        <strong>📌 Lưu ý:</strong>
+                        <ul style="margin-top: 8px; padding-left: 20px; list-style: disc;">
+                            <li>Vui lòng chuyển khoản đúng số tiền bằng mã QR</li>
+                            <li>Không cần thao tác xác nhận sau khi chuyển khoản</li>
+                            <li>Thời gian xác nhận dự kiến: 5–30 phút trong giờ làm việc</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Success Card (Hidden by default) -->
+                <div id="successCard" style="display: none; background: #FFFFFF; border: 2px solid #10B981; border-radius: 12px; padding: 32px; text-align: center; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);">
+                    <div class="success-checkmark" style="width: 80px; height: 80px; background: #D1FAE5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                        <svg style="width: 40px; height: 40px; color: #10B981;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h2 style="font-size: 24px; font-weight: 900; color: #10B981; margin-bottom: 12px;">Đặt cọc thành công!</h2>
+                    <p style="font-size: 14px; color: #666666; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+                        Xe đã được giữ cho bạn. Nhân viên CarShop sẽ liên hệ để hướng dẫn các bước tiếp theo.
+                    </p>
+                    <button onclick="window.location.href='my-bookings.html'" style="margin-top: 24px; padding: 12px 32px; background: #10B981; color: #FFFFFF; font-weight: 700; border: none; border-radius: 6px; cursor: pointer; font-size: 14px;">
+                        Xem đơn hàng của tôi
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="background: #1A1A1A; color: #999999; margin-top: 60px; border-top: 1px solid #333333;">
+        <div class="container mx-auto px-4" style="padding-top: 40px; padding-bottom: 40px;">
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 36px; height: 36px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 20px; height: 20px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <span style="font-size: 20px; font-weight: 700; color: #FFFFFF;">CarShop</span>
+                </div>
+                <p style="font-size: 13px; color: #666666;">&copy; 2024 CarShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="payment-qr.js"></script>
+</body>
+</html>
