@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác nhận đặt cọc mua xe - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+        
+        .corporate-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        .corporate-card-header {
+            border-bottom: 1px solid #E0E0E0;
+            padding: 20px 24px;
+            background: #FAFAFA;
+        }
+        
+        .corporate-card-body {
+            padding: 24px;
+        }
+        
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F0F0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            color: #666666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            color: #1A1A1A;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .price-display {
+            font-size: 32px;
+            font-weight: 900;
+            color: #1A1A1A;
+            letter-spacing: -0.5px;
+        }
+        
+        .deposit-amount {
+            font-size: 28px;
+            font-weight: 900;
+            color: #CB3634;
+            letter-spacing: -0.5px;
+        }
+        
+        .payment-method {
+            border: 2px solid #D0D0D0;
+            border-radius: 4px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #FFFFFF;
+        }
+        
+        .payment-method:hover {
+            border-color: #999999;
+            background: #FAFAFA;
+        }
+        
+        .payment-method input:checked + label {
+            border-color: #CB3634;
+            background: #FFFFFF;
+        }
+        
+        .btn-primary {
+            background: #CB3634;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 16px;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary:hover:not(:disabled) {
+            background: #B02E2B;
+        }
+        
+        .btn-primary:disabled {
+            background: #CCCCCC;
+            cursor: not-allowed;
+        }
+        
+        .btn-secondary {
+            background: #FFFFFF;
+            color: #333333;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px 24px;
+            border: 1px solid #D0D0D0;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: #F5F5F5;
+            border-color: #999999;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #1E88E5;
+            color: #FFFFFF;
+            font-size: 12px;
+            font-weight: 700;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .alert-box {
+            background: #FFF9E6;
+            border: 1px solid #FFE082;
+            border-left: 4px solid #FFA000;
+            padding: 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333333;
+        }
+        
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 20px;
+            background: #F9F9F9;
+            border: 1px solid #E0E0E0;
+            border-radius: 4px;
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #CB3634;
+        }
+        
+        .loading-overlay {
+            background: rgba(0, 0, 0, 0.7);
+        }
+        
+        .loading-spinner {
+            border: 4px solid #F0F0F0;
+            border-top: 4px solid #CB3634;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1A1A1A;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .divider {
+            height: 1px;
+            background: #E0E0E0;
+            margin: 24px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header style="background: #FFFFFF; border-bottom: 1px solid #E0E0E0; position: sticky; top: 0; z-index: 50;">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between" style="height: 64px;">
+                <div class="flex items-center">
+                    <a href="home.html" class="flex items-center gap-3">
+                        <div style="width: 40px; height: 40px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <svg style="width: 24px; height: 24px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span style="font-size: 20px; font-weight: 700; color: #1A1A1A;">CarShop</span>
+                    </a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button onclick="window.history.back()" style="display: flex; align-items: center; gap: 8px; padding: 8px 16px; color: #666666; background: transparent; border: 1px solid #D0D0D0; border-radius: 4px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s;">
+                        <svg style="width: 18px; height: 18px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        <span>Quay lại</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="min-height: calc(100vh - 64px); padding: 48px 0; background: #F5F5F5;">
+        <div class="container mx-auto px-4">
+            
+            <div style="max-width: 1200px; margin: 0 auto;">
+                
+                <!-- Page Header -->
+                <div style="margin-bottom: 40px;">
+                    <h1 style="font-size: 32px; font-weight: 900; color: #1A1A1A; margin-bottom: 8px; letter-spacing: -0.5px;">XÁC NHẬN ĐẶT CỌC MUA XE</h1>
+                    <p style="font-size: 15px; color: #666666; font-weight: 500;">Vui lòng kiểm tra kỹ thông tin trước khi xác nhận đặt cọc</p>
+                </div>
+
+                <!-- Main Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                    
+                    <!-- LEFT COLUMN: Car & Booking Info (3 cols) -->
+                    <div class="lg:col-span-3" style="display: flex; flex-direction: column; gap: 24px;">
+                        
+                        <!-- Car Info Card -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-header">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <h2 class="section-title" style="margin: 0;">Thông tin xe</h2>
+                                    <span class="status-badge">Đã xem xe</span>
+                                </div>
+                            </div>
+                            <div class="corporate-card-body">
+                                <div style="display: flex; gap: 24px; margin-bottom: 24px;">
+                                    <div style="width: 200px; height: 150px; flex-shrink: 0; border-radius: 4px; overflow: hidden; border: 1px solid #E0E0E0;">
+                                        <img id="carImage" src="" alt="Car" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Hãng xe</p>
+                                        <p id="carBrand" style="font-size: 14px; color: #666666; font-weight: 600; margin-bottom: 12px;"></p>
+                                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tên xe</p>
+                                        <h2 id="carName" style="font-size: 24px; font-weight: 900; color: #1A1A1A; margin-bottom: 20px; letter-spacing: -0.5px;"></h2>
+                                        <div style="padding-top: 16px; border-top: 1px solid #E0E0E0;">
+                                            <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Giá bán</p>
+                                            <p id="carPrice" class="price-display"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Booking Info -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-header">
+                                <h3 class="section-title" style="margin: 0;">Thông tin lịch xem xe</h3>
+                            </div>
+                            <div class="corporate-card-body">
+                                <div class="info-row">
+                                    <span class="info-label">Ngày xem xe</span>
+                                    <span id="bookingDate" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Giờ hẹn</span>
+                                    <span id="bookingTime" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Showroom</span>
+                                    <span id="showroomName" class="info-value"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Địa chỉ</span>
+                                    <span id="showroomAddress" class="info-value" style="max-width: 300px;"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: Deposit Form (2 cols) -->
+                    <div class="lg:col-span-2" style="display: flex; flex-direction: column; gap: 24px;">
+                        
+                        <!-- Deposit Amount -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-header">
+                                <h3 class="section-title" style="margin: 0;">Thông tin đặt cọc</h3>
+                            </div>
+                            <div class="corporate-card-body">
+                                <div class="info-row">
+                                    <span class="info-label">Giá bán xe</span>
+                                    <span id="priceDisplay" class="info-value" style="font-size: 16px; font-weight: 700;"></span>
+                                </div>
+                                <div class="info-row" style="padding: 20px 0; background: #FAFAFA; margin: 16px -24px; padding-left: 24px; padding-right: 24px;">
+                                    <span style="font-size: 15px; font-weight: 700; color: #1A1A1A;">Tiền đặt cọc (10%)</span>
+                                    <span id="depositAmount" class="deposit-amount"></span>
+                                </div>
+                                <div class="info-row">
+                                    <span class="info-label">Số tiền còn lại</span>
+                                    <span id="remainingAmount" class="info-value" style="font-size: 16px; font-weight: 700;"></span>
+                                </div>
+                                
+                                <div class="divider"></div>
+                                
+                                <div class="alert-box">
+                                    <strong>Lưu ý quan trọng:</strong> Số tiền còn lại sẽ được thanh toán khi ký hợp đồng mua bán tại showroom. Tiền đặt cọc không được hoàn trả nếu khách hàng đơn phương hủy giao dịch.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-header">
+                                <h3 class="section-title" style="margin: 0;">Phương thức đặt cọc</h3>
+                            </div>
+                            <div class="corporate-card-body">
+                                <div style="display: flex; flex-direction: column; gap: 12px;">
+                                    <div class="payment-method">
+                                        <input type="radio" id="bank" name="payment" value="bank" style="display: none;">
+                                        <label for="bank" style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                            <div style="width: 20px; height: 20px; border: 2px solid #D0D0D0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                <div style="width: 10px; height: 10px; background: #CB3634; border-radius: 50%; display: none;" class="radio-dot"></div>
+                                            </div>
+                                            <span style="font-size: 14px; font-weight: 600; color: #1A1A1A;">Chuyển khoản ngân hàng</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="payment-method">
+                                        <input type="radio" id="vnpay" name="payment" value="vnpay" style="display: none;">
+                                        <label for="vnpay" style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                            <div style="width: 20px; height: 20px; border: 2px solid #D0D0D0; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                <div style="width: 10px; height: 10px; background: #CB3634; border-radius: 50%; display: none;" class="radio-dot"></div>
+                                            </div>
+                                            <span style="font-size: 14px; font-weight: 600; color: #1A1A1A;">VNPay</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="payment-method">
+                                        <input type="radio" id="showroom" name="payment" value="showroom" checked style="display: none;">
+                                        <label for="showroom" style="display: flex; align-items: center; gap: 12px; cursor: pointer;">
+                                            <div style="width: 20px; height: 20px; border: 2px solid #CB3634; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                <div style="width: 10px; height: 10px; background: #CB3634; border-radius: 50%;" class="radio-dot"></div>
+                                            </div>
+                                            <span style="font-size: 14px; font-weight: 600; color: #1A1A1A;">Thanh toán tại showroom</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Confirmation -->
+                        <div class="corporate-card">
+                            <div class="corporate-card-body">
+                                <div class="checkbox-container">
+                                    <input type="checkbox" id="confirmCheckbox">
+                                    <label for="confirmCheckbox" style="font-size: 14px; color: #333333; line-height: 1.6; cursor: pointer; font-weight: 500;">
+                                        Tôi xác nhận đã đọc, hiểu rõ và đồng ý với các điều khoản đặt cọc mua xe. Tôi cam kết thanh toán đầy đủ số tiền còn lại khi ký hợp đồng mua bán tại showroom.
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <button 
+                                id="depositBtn"
+                                onclick="handleDeposit()"
+                                disabled
+                                class="btn-primary"
+                                style="width: 100%;"
+                            >
+                                XÁC NHẬN ĐẶT CỌC
+                            </button>
+                            
+                            <button 
+                                onclick="window.history.back()"
+                                class="btn-secondary"
+                                style="width: 100%;"
+                            >
+                                Quay lại chi tiết lịch xem xe
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none; position: fixed; inset: 0; z-index: 9999; align-items: center; justify-content: center;">
+        <div style="background: #FFFFFF; border-radius: 6px; padding: 48px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); text-align: center; max-width: 400px; margin: 0 16px;">
+            <div class="loading-spinner" style="margin: 0 auto 24px;"></div>
+            <h3 style="font-size: 20px; font-weight: 700; color: #1A1A1A; margin-bottom: 8px;">Đang xử lý giao dịch</h3>
+            <p style="font-size: 14px; color: #666666;">Vui lòng chờ trong giây lát...</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer style="background: #1A1A1A; color: #999999; margin-top: 80px; border-top: 1px solid #333333;">
+        <div class="container mx-auto px-4" style="padding-top: 40px; padding-bottom: 40px;">
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 36px; height: 36px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 20px; height: 20px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <span style="font-size: 20px; font-weight: 700; color: #FFFFFF;">CarShop</span>
+                </div>
+                <p style="font-size: 13px; color: #666666;">&copy; 2024 CarShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="deposit.js"></script>
+</body>
+</html>

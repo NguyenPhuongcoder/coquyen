@@ -73,7 +73,7 @@ function prevHeroCar() {
 
 function bookTestDrive() {
     const car = heroCars[currentHeroIndex];
-    alert(`Đặt lịch lái thử: ${car.name}\n\nChức năng này sẽ được triển khai trong phiên bản tiếp theo.`);
+    window.location.href = `booking.html?carId=${car.id}`;
 }
 
 // Auto slide every 5 seconds
@@ -414,9 +414,7 @@ function viewCarDetail(carId) {
 function bookAppointment(carId) {
     const car = cars.find(c => c.id === carId);
     console.log(`Booking appointment for: ${car.name}`);
-    alert(`Đặt lịch xem xe: ${car.name}\n\nChức năng này sẽ được triển khai trong phiên bản tiếp theo.`);
-    // In production: Redirect to booking page
-    // window.location.href = `booking.html?carId=${carId}`;
+    window.location.href = `booking.html?carId=${carId}`;
 }
 
 // Edit car (SELLER/ADMIN only)

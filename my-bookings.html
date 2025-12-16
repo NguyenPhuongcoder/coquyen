@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch xem xe của tôi - CarShop</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="carshop-auth/style.css">
+    
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #F5F5F5;
+            color: #1A1A1A;
+        }
+        
+        .corporate-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            transition: box-shadow 0.2s ease;
+        }
+        
+        .corporate-card:hover {
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        }
+        
+        .stat-card {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            border-radius: 6px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .stat-card:hover {
+            border-color: #CB3634;
+            box-shadow: 0 2px 6px rgba(203, 54, 52, 0.1);
+        }
+        
+        .stat-card.active {
+            border-color: #CB3634;
+            background: #FFF5F5;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-pending {
+            background: #FFF3CD;
+            color: #856404;
+            border: 1px solid #FFE69C;
+        }
+        
+        .status-viewed {
+            background: #D1ECF1;
+            color: #0C5460;
+            border: 1px solid #BEE5EB;
+        }
+        
+        .status-undecided {
+            background: #E2E3E5;
+            color: #383D41;
+            border: 1px solid #D6D8DB;
+        }
+        
+        .status-cancelled {
+            background: #F8D7DA;
+            color: #721C24;
+            border: 1px solid #F5C6CB;
+        }
+        
+        .btn-primary {
+            background: #CB3634;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-primary:hover {
+            background: #B02E2B;
+        }
+        
+        .filter-select {
+            padding: 10px 16px;
+            border: 1px solid #D0D0D0;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #333333;
+            background: #FFFFFF;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: #CB3634;
+        }
+        
+        .pagination-btn {
+            padding: 8px 16px;
+            border: 1px solid #D0D0D0;
+            border-radius: 4px;
+            background: #FFFFFF;
+            color: #333333;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            border-color: #CB3634;
+            color: #CB3634;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-btn.active {
+            background: #CB3634;
+            color: #FFFFFF;
+            border-color: #CB3634;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #1A1A1A;
+            letter-spacing: -0.5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header style="background: #FFFFFF; border-bottom: 1px solid #E0E0E0; position: sticky; top: 0; z-index: 50;">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between" style="height: 64px;">
+                <div class="flex items-center">
+                    <a href="home.html" class="flex items-center gap-3">
+                        <div style="width: 40px; height: 40px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                            <svg style="width: 24px; height: 24px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <span style="font-size: 20px; font-weight: 700; color: #1A1A1A;">CarShop</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="home.html" style="color: #666666; font-size: 14px; font-weight: 600; text-decoration: none;">Trang chủ</a>
+                    <a href="cars.html" style="color: #666666; font-size: 14px; font-weight: 600; text-decoration: none;">Xe đang bán</a>
+                    <a href="my-bookings.html" style="color: #CB3634; font-size: 14px; font-weight: 700; text-decoration: none;">Lịch xem xe</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main style="min-height: calc(100vh - 64px); padding: 48px 0;">
+        <div class="container mx-auto px-4">
+            
+            <div style="max-width: 1200px; margin: 0 auto;">
+                
+                <!-- Page Header -->
+                <div style="margin-bottom: 40px;">
+                    <h1 class="section-title" style="margin-bottom: 8px;">LỊCH XEM XE CỦA TÔI</h1>
+                    <p style="font-size: 15px; color: #666666; font-weight: 500;">Danh sách các lịch xem xe bạn đã đặt tại showroom</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4" style="margin-bottom: 32px;">
+                    <div class="stat-card" onclick="filterByStatus('pending')">
+                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Chờ xem</p>
+                        <p id="statPending" style="font-size: 32px; font-weight: 900; color: #1A1A1A;">0</p>
+                    </div>
+                    <div class="stat-card" onclick="filterByStatus('viewed')">
+                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Đã xem</p>
+                        <p id="statViewed" style="font-size: 32px; font-weight: 900; color: #1A1A1A;">0</p>
+                    </div>
+                    <div class="stat-card" onclick="filterByStatus('undecided')">
+                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Chưa quyết định</p>
+                        <p id="statUndecided" style="font-size: 32px; font-weight: 900; color: #1A1A1A;">0</p>
+                    </div>
+                    <div class="stat-card" onclick="filterByStatus('cancelled')">
+                        <p style="font-size: 12px; color: #999999; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Đã hủy</p>
+                        <p id="statCancelled" style="font-size: 32px; font-weight: 900; color: #1A1A1A;">0</p>
+                    </div>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="corporate-card" style="padding: 20px; margin-bottom: 24px;">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <label style="font-size: 14px; font-weight: 700; color: #1A1A1A;">Lọc theo:</label>
+                            <select id="statusFilter" onchange="applyFilters()" class="filter-select">
+                                <option value="all">Tất cả trạng thái</option>
+                                <option value="pending">Chờ xem xe</option>
+                                <option value="viewed">Đã xem xe</option>
+                                <option value="undecided">Chưa quyết định</option>
+                                <option value="cancelled">Đã hủy lịch</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <label style="font-size: 14px; font-weight: 700; color: #1A1A1A;">Sắp xếp:</label>
+                            <select id="sortFilter" onchange="applyFilters()" class="filter-select">
+                                <option value="date-desc">Ngày mới nhất</option>
+                                <option value="date-asc">Ngày cũ nhất</option>
+                                <option value="price-desc">Giá cao nhất</option>
+                                <option value="price-asc">Giá thấp nhất</option>
+                            </select>
+                        </div>
+                        <div style="font-size: 14px; color: #666666;">
+                            Hiển thị <span id="resultCount" style="font-weight: 700; color: #1A1A1A;">0</span> lịch hẹn
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookings List -->
+                <div id="bookingsList" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 32px;">
+                    <!-- Will be rendered by JS -->
+                </div>
+
+                <!-- Pagination -->
+                <div id="pagination" style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 32px;">
+                    <!-- Will be rendered by JS -->
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" style="display: none;">
+                    <div class="corporate-card" style="padding: 80px 40px; text-align: center;">
+                        <div style="width: 80px; height: 80px; background: #F5F5F5; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
+                            <svg style="width: 40px; height: 40px; color: #CCCCCC;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                            </svg>
+                        </div>
+                        <h3 style="font-size: 24px; font-weight: 700; color: #1A1A1A; margin-bottom: 12px;">Chưa có lịch xem xe</h3>
+                        <p style="font-size: 15px; color: #666666; margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto;">Bạn chưa đặt lịch xem xe nào. Hãy khám phá các xe đang bán và đặt lịch ngay!</p>
+                        <a href="cars.html" class="btn-primary" style="display: inline-block; text-decoration: none;">
+                            Khám phá xe đang bán
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer style="background: #1A1A1A; color: #999999; margin-top: 80px; border-top: 1px solid #333333;">
+        <div class="container mx-auto px-4" style="padding-top: 40px; padding-bottom: 40px;">
+            <div style="text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px;">
+                    <div style="width: 36px; height: 36px; background: #CB3634; border-radius: 4px; display: flex; align-items: center; justify-content: center;">
+                        <svg style="width: 20px; height: 20px; color: #FFFFFF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <span style="font-size: 20px; font-weight: 700; color: #FFFFFF;">CarShop</span>
+                </div>
+                <p style="font-size: 13px; color: #666666;">&copy; 2024 CarShop. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="my-bookings.js"></script>
+</body>
+</html>

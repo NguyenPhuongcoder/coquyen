@@ -177,20 +177,20 @@ function mockLoginAPI(credentials) {
 // ===================================
 function redirectByRole(role) {
     const routes = {
-        'USER': '/cars',
-        'SELLER': '/seller/dashboard',
-        'ADMIN': '/admin/dashboard'
+        'USER': '../home.html',
+        'SELLER': '../home.html', // Seller cũng vào home nhưng có quyền khác
+        'ADMIN': '../home.html'   // Admin cũng vào home nhưng có quyền khác
     };
     
-    const redirectUrl = routes[role] || '/';
+    const redirectUrl = routes[role] || '../home.html';
     
     // Show success message
     successMessage.classList.remove('hidden');
     
     // Redirect after 1 second
     setTimeout(() => {
-        console.log(`Redirecting to home page`);
-        window.location.href = '../home.html';
+        console.log(`Redirecting ${role} to: ${redirectUrl}`);
+        window.location.href = redirectUrl;
     }, 1000);
 }
 
