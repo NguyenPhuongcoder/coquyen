@@ -3,13 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarShop - Admin Dashboard</title>
+    <title>CarShop - Hệ thống mua bán xe</title>
     <script>
-        // Redirect to admin dashboard immediately
-        window.location.href = 'admin-dashboard.html';
+        // Check if user is logged in (mock check)
+        const isLoggedIn = sessionStorage.getItem('carshop_user');
+        
+        if (isLoggedIn) {
+            // Redirect to home page
+            window.location.href = 'home.html';
+        } else {
+            // Redirect to login page
+            window.location.href = 'carshop-auth/login.html';
+        }
     </script>
 </head>
 <body>
-    <p>Đang chuyển hướng đến trang quản trị...</p>
+    <p>Đang chuyển hướng...</p>
 </body>
 </html>

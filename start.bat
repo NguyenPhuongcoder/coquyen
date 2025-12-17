@@ -1,3 +1,0 @@
-@echo off
-echo Starting CarShop Admin Dashboard...
-start admin-dashboard.html
