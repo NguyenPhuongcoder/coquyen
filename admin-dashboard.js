@@ -3,37 +3,12 @@
    =================================== */
 
 // ===================================
-// Check Admin Authentication
+// Check Admin Authentication (DISABLED FOR DEMO)
 // ===================================
 function checkAdminAuth() {
-    const userSession = sessionStorage.getItem('carshop_user');
-    
-    if (!userSession) {
-        console.error('❌ No user session found. Redirecting to login...');
-        alert('Vui lòng đăng nhập để truy cập trang này!');
-        window.location.href = 'carshop-auth/login.html';
-        return false;
-    }
-    
-    try {
-        const user = JSON.parse(userSession);
-        
-        if (user.role !== 'ADMIN') {
-            console.error('❌ Access denied. User is not admin. Redirecting...');
-            alert('Bạn không có quyền truy cập trang này!');
-            window.location.href = 'home.html';
-            return false;
-        }
-        
-        console.log('%c✅ Admin authenticated successfully', 'color: #10B981; font-weight: bold;');
-        console.log('Admin Email:', user.email);
-        return true;
-        
-    } catch (error) {
-        console.error('❌ Invalid session data. Redirecting to login...');
-        window.location.href = 'carshop-auth/login.html';
-        return false;
-    }
+    // Authentication disabled for demo purposes
+    console.log('%c✅ Admin access granted (demo mode - no auth required)', 'color: #10B981; font-weight: bold;');
+    return true;
 }
 
 // DEMO DATA - Dashboard Statistics
