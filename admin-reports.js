@@ -63,13 +63,13 @@ const dataByTimeRange = {
         revenue: [3.2, 4.5, 3.8, 5.1, 4.2, 6.3, 5.8],
         sales: [2, 3, 2, 4, 3, 5, 4],
         reportData: [
-            { date: 'Chủ nhật, 15/12', revenue: '3.2 tỷ', sales: 2, customers: 5, conversion: '65%' },
-            { date: 'Thứ hai, 16/12', revenue: '4.5 tỷ', sales: 3, customers: 8, conversion: '70%' },
-            { date: 'Thứ ba, 17/12', revenue: '3.8 tỷ', sales: 2, customers: 6, conversion: '62%' },
-            { date: 'Thứ tư, 18/12', revenue: '5.1 tỷ', sales: 4, customers: 9, conversion: '72%' },
-            { date: 'Thứ năm, 19/12', revenue: '4.2 tỷ', sales: 3, customers: 7, conversion: '68%' },
-            { date: 'Thứ sáu, 20/12', revenue: '6.3 tỷ', sales: 5, customers: 11, conversion: '75%' },
-            { date: 'Thứ bảy, 21/12', revenue: '5.8 tỷ', sales: 4, customers: 10, conversion: '71%' }
+            { date: 'Chủ nhật, 15/12', revenue: '3.2 tỷ', sales: 2, customers: 5, conversion: '40%' },
+            { date: 'Thứ hai, 16/12', revenue: '4.5 tỷ', sales: 3, customers: 7, conversion: '43%' },
+            { date: 'Thứ ba, 17/12', revenue: '3.8 tỷ', sales: 2, customers: 6, conversion: '33%' },
+            { date: 'Thứ tư, 18/12', revenue: '5.1 tỷ', sales: 4, customers: 9, conversion: '44%' },
+            { date: 'Thứ năm, 19/12', revenue: '4.2 tỷ', sales: 3, customers: 8, conversion: '38%' },
+            { date: 'Thứ sáu, 20/12', revenue: '6.3 tỷ', sales: 5, customers: 12, conversion: '42%' },
+            { date: 'Thứ bảy, 21/12', revenue: '5.8 tỷ', sales: 4, customers: 10, conversion: '40%' }
         ]
     },
     month: {
@@ -77,18 +77,18 @@ const dataByTimeRange = {
         revenue: [12.5, 15.2, 18.7, 22.3, 19.8, 25.4, 28.9, 31.2, 27.6, 33.8, 36.5, 42.1],
         sales: [8, 10, 12, 15, 13, 17, 19, 21, 18, 23, 25, 28],
         reportData: [
-            { date: 'Tháng 1/2024', revenue: '12.5 tỷ', sales: 8, customers: 15, conversion: '65%' },
-            { date: 'Tháng 2/2024', revenue: '15.2 tỷ', sales: 10, customers: 18, conversion: '68%' },
-            { date: 'Tháng 3/2024', revenue: '18.7 tỷ', sales: 12, customers: 22, conversion: '70%' },
-            { date: 'Tháng 4/2024', revenue: '22.3 tỷ', sales: 15, customers: 28, conversion: '72%' },
-            { date: 'Tháng 5/2024', revenue: '19.8 tỷ', sales: 13, customers: 24, conversion: '67%' },
-            { date: 'Tháng 6/2024', revenue: '25.4 tỷ', sales: 17, customers: 32, conversion: '73%' },
-            { date: 'Tháng 7/2024', revenue: '28.9 tỷ', sales: 19, customers: 35, conversion: '75%' },
-            { date: 'Tháng 8/2024', revenue: '31.2 tỷ', sales: 21, customers: 38, conversion: '76%' },
-            { date: 'Tháng 9/2024', revenue: '27.6 tỷ', sales: 18, customers: 33, conversion: '71%' },
-            { date: 'Tháng 10/2024', revenue: '33.8 tỷ', sales: 23, customers: 42, conversion: '78%' },
-            { date: 'Tháng 11/2024', revenue: '36.5 tỷ', sales: 25, customers: 45, conversion: '79%' },
-            { date: 'Tháng 12/2024', revenue: '42.1 tỷ', sales: 28, customers: 52, conversion: '82%' }
+            { date: 'Tháng 1/2024', revenue: '12.5 tỷ', sales: 8, customers: 20, conversion: '40%' },
+            { date: 'Tháng 2/2024', revenue: '15.2 tỷ', sales: 10, customers: 24, conversion: '42%' },
+            { date: 'Tháng 3/2024', revenue: '18.7 tỷ', sales: 12, customers: 28, conversion: '43%' },
+            { date: 'Tháng 4/2024', revenue: '22.3 tỷ', sales: 15, customers: 35, conversion: '43%' },
+            { date: 'Tháng 5/2024', revenue: '19.8 tỷ', sales: 13, customers: 32, conversion: '41%' },
+            { date: 'Tháng 6/2024', revenue: '25.4 tỷ', sales: 17, customers: 40, conversion: '43%' },
+            { date: 'Tháng 7/2024', revenue: '28.9 tỷ', sales: 19, customers: 45, conversion: '42%' },
+            { date: 'Tháng 8/2024', revenue: '31.2 tỷ', sales: 21, customers: 48, conversion: '44%' },
+            { date: 'Tháng 9/2024', revenue: '27.6 tỷ', sales: 18, customers: 42, conversion: '43%' },
+            { date: 'Tháng 10/2024', revenue: '33.8 tỷ', sales: 23, customers: 52, conversion: '44%' },
+            { date: 'Tháng 11/2024', revenue: '36.5 tỷ', sales: 25, customers: 56, conversion: '45%' },
+            { date: 'Tháng 12/2024', revenue: '42.1 tỷ', sales: 28, customers: 62, conversion: '45%' }
         ]
     },
     year: {
@@ -96,12 +96,12 @@ const dataByTimeRange = {
         revenue: [145, 178, 215, 268, 312, 365],
         sales: [95, 118, 142, 178, 206, 241],
         reportData: [
-            { date: 'Năm 2019', revenue: '145 tỷ', sales: 95, customers: 180, conversion: '62%' },
-            { date: 'Năm 2020', revenue: '178 tỷ', sales: 118, customers: 225, conversion: '65%' },
-            { date: 'Năm 2021', revenue: '215 tỷ', sales: 142, customers: 270, conversion: '68%' },
-            { date: 'Năm 2022', revenue: '268 tỷ', sales: 178, customers: 335, conversion: '71%' },
-            { date: 'Năm 2023', revenue: '312 tỷ', sales: 206, customers: 390, conversion: '74%' },
-            { date: 'Năm 2024', revenue: '365 tỷ', sales: 241, customers: 455, conversion: '77%' }
+            { date: 'Năm 2019', revenue: '145 tỷ', sales: 95, customers: 235, conversion: '40%' },
+            { date: 'Năm 2020', revenue: '178 tỷ', sales: 118, customers: 285, conversion: '41%' },
+            { date: 'Năm 2021', revenue: '215 tỷ', sales: 142, customers: 340, conversion: '42%' },
+            { date: 'Năm 2022', revenue: '268 tỷ', sales: 178, customers: 420, conversion: '42%' },
+            { date: 'Năm 2023', revenue: '312 tỷ', sales: 206, customers: 480, conversion: '43%' },
+            { date: 'Năm 2024', revenue: '365 tỷ', sales: 241, customers: 545, conversion: '44%' }
         ]
     }
 };
@@ -305,6 +305,95 @@ function renderReportTable() {
 }
 
 // ===================================
+// Update Summary Cards
+// ===================================
+function updateSummaryCards() {
+    const timeData = dataByTimeRange[currentTimeRange];
+    
+    // Calculate totals
+    const totalRevenue = timeData.revenue.reduce((sum, val) => sum + val, 0);
+    const totalSales = timeData.sales.reduce((sum, val) => sum + val, 0);
+    const totalCustomers = timeData.reportData.reduce((sum, row) => sum + row.customers, 0);
+    const avgConversion = (totalSales / totalCustomers * 100).toFixed(0);
+    
+    // Get previous period data for comparison
+    const previousPeriodData = getPreviousPeriodData();
+    const prevRevenue = previousPeriodData.revenue.reduce((sum, val) => sum + val, 0);
+    const prevSales = previousPeriodData.sales.reduce((sum, val) => sum + val, 0);
+    const prevCustomers = previousPeriodData.reportData.reduce((sum, row) => sum + row.customers, 0);
+    const prevConversion = (prevSales / prevCustomers * 100);
+    
+    // Calculate changes
+    const revenueChange = ((totalRevenue - prevRevenue) / prevRevenue * 100).toFixed(1);
+    const salesChange = ((totalSales - prevSales) / prevSales * 100).toFixed(1);
+    const customersChange = ((totalCustomers - prevCustomers) / prevCustomers * 100).toFixed(1);
+    const conversionChange = (avgConversion - prevConversion).toFixed(1);
+    
+    // Update UI
+    document.getElementById('totalRevenue').textContent = totalRevenue.toFixed(1) + ' tỷ';
+    document.getElementById('totalSales').textContent = totalSales;
+    document.getElementById('newCustomers').textContent = totalCustomers;
+    document.getElementById('conversionRate').textContent = avgConversion + '%';
+    
+    // Update change indicators
+    updateChangeIndicator('revenueChange', revenueChange);
+    updateChangeIndicator('salesChange', salesChange);
+    updateChangeIndicator('customersChange', customersChange);
+    updateChangeIndicator('conversionChange', conversionChange);
+}
+
+// ===================================
+// Get Previous Period Data
+// ===================================
+function getPreviousPeriodData() {
+    // Simulate previous period data (in real app, this would come from backend)
+    const previousData = {
+        week: {
+            revenue: [2.8, 4.1, 3.5, 4.8, 3.9, 5.9, 5.2],
+            sales: [2, 3, 2, 3, 3, 4, 4],
+            reportData: [
+                { customers: 5 }, { customers: 7 }, { customers: 6 },
+                { customers: 8 }, { customers: 8 }, { customers: 11 }, { customers: 9 }
+            ]
+        },
+        month: {
+            revenue: [11.2, 14.1, 17.3, 20.8, 18.5, 23.9, 27.2, 29.5, 26.1, 31.8, 34.2, 39.5],
+            sales: [7, 9, 11, 14, 12, 16, 18, 20, 17, 22, 24, 26],
+            reportData: [
+                { customers: 18 }, { customers: 22 }, { customers: 26 }, { customers: 33 },
+                { customers: 30 }, { customers: 38 }, { customers: 43 }, { customers: 46 },
+                { customers: 40 }, { customers: 50 }, { customers: 54 }, { customers: 58 }
+            ]
+        },
+        year: {
+            revenue: [135, 165, 198, 248, 285, 312],
+            sales: [88, 110, 132, 165, 188, 206],
+            reportData: [
+                { customers: 220 }, { customers: 268 }, { customers: 315 }, 
+                { customers: 390 }, { customers: 438 }, { customers: 480 }
+            ]
+        }
+    };
+    
+    return previousData[currentTimeRange];
+}
+
+// ===================================
+// Update Change Indicator
+// ===================================
+function updateChangeIndicator(elementId, changeValue) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+    
+    const isPositive = parseFloat(changeValue) >= 0;
+    const arrow = isPositive ? '↑' : '↓';
+    const colorClass = isPositive ? 'positive' : 'negative';
+    
+    element.className = `summary-change ${colorClass}`;
+    element.textContent = `${arrow} ${Math.abs(changeValue)}% so với kỳ trước`;
+}
+
+// ===================================
 // Handle Time Range Change
 // ===================================
 function handleTimeRangeChange() {
@@ -313,10 +402,11 @@ function handleTimeRangeChange() {
     
     console.log(`📅 Time range changed to: ${currentTimeRange}`);
     
-    // Re-render charts and table
+    // Re-render charts, table, and summary cards
     renderRevenueLineChart();
     renderSalesBarChart();
     renderReportTable();
+    updateSummaryCards();
 }
 
 // ===================================
@@ -421,12 +511,14 @@ function initReports() {
     console.log('   • Revenue Line Chart');
     console.log('   • Sales Bar Chart');
     console.log('   • Report Table');
+    console.log('   • Summary Cards');
     console.log('═════════════════════════════════════');
     
     // Render all components
     renderRevenueLineChart();
     renderSalesBarChart();
     renderReportTable();
+    updateSummaryCards();
     
     console.log('✅ All charts and reports loaded successfully!');
 }
