@@ -3,37 +3,24 @@
    =================================== */
 
 // ===================================
-// Check Admin Authentication
+// Check Admin Authentication (DISABLED FOR DEVELOPMENT)
 // ===================================
 function checkAdminAuth() {
+    // Auto-create admin session if not exists
     const userSession = sessionStorage.getItem('carshop_user');
     
     if (!userSession) {
-        console.error('❌ No user session found. Redirecting to login...');
-        alert('Vui lòng đăng nhập để truy cập trang này!');
-        window.location.href = 'carshop-auth/login.html';
-        return false;
+        const adminUser = {
+            email: 'admin@carshop.com',
+            name: 'Admin User',
+            role: 'ADMIN'
+        };
+        sessionStorage.setItem('carshop_user', JSON.stringify(adminUser));
+        console.log('%c✅ Auto-login as admin (development mode)', 'color: #10B981; font-weight: bold;');
     }
     
-    try {
-        const user = JSON.parse(userSession);
-        
-        if (user.role !== 'ADMIN') {
-            console.error('❌ Access denied. User is not admin. Redirecting...');
-            alert('Bạn không có quyền truy cập trang này!');
-            window.location.href = 'home.html';
-            return false;
-        }
-        
-        console.log('%c✅ Admin authenticated successfully', 'color: #10B981; font-weight: bold;');
-        console.log('Admin Email:', user.email);
-        return true;
-        
-    } catch (error) {
-        console.error('❌ Invalid session data. Redirecting to login...');
-        window.location.href = 'carshop-auth/login.html';
-        return false;
-    }
+    console.log('%c✅ Admin access granted', 'color: #10B981; font-weight: bold;');
+    return true;
 }
 
 // ===================================
@@ -52,7 +39,7 @@ function handleLogout() {
 // ===================================
 let revenueChart = null;
 let salesChart = null;
-let currentTimeRange = 'week';
+let currentTimeRange = 'month';
 
 // ===================================
 // Data by Time Range
