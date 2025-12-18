@@ -39,7 +39,7 @@ function handleLogout() {
 // ===================================
 let revenueChart = null;
 let salesChart = null;
-let currentTimeRange = 'week';
+let currentTimeRange = 'year';
 
 // ===================================
 // Data by Time Range
