@@ -5,19 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CarShop - Hệ thống mua bán xe</title>
     <script>
-        // Check if user is logged in (mock check)
-        const isLoggedIn = sessionStorage.getItem('carshop_user');
+        // Auto-login as admin for development
+        const adminUser = {
+            email: 'admin@carshop.com',
+            name: 'Admin User',
+            role: 'ADMIN'
+        };
         
-        if (isLoggedIn) {
-            // Redirect to home page
-            window.location.href = 'home.html';
-        } else {
-            // Redirect to login page
-            window.location.href = 'carshop-auth/login.html';
-        }
+        // Set admin session
+        sessionStorage.setItem('carshop_user', JSON.stringify(adminUser));
+        
+        // Redirect to admin dashboard
+        window.location.href = 'admin-dashboard.html';
     </script>
 </head>
 <body>
-    <p>Đang chuyển hướng...</p>
+    <p>Đang chuyển hướng đến trang quản trị...</p>
 </body>
 </html>
